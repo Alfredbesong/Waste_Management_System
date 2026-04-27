@@ -47,14 +47,14 @@ Reason:
 
 ### Do not upload these
 
-- `backend/db.sqlite3`
-- `backend/media/`
-- `backend/.venv/`
-- `.env`, `backend/.env`, and any secret env file
-- Firebase service account JSON files
-- signing keys such as `.jks`, `.keystore`, and `android/key.properties`
-- `android/app/google-services.json` if this is your personal or production Firebase project
-- build output folders such as `build/`, `.dart_tool/`, and cache folders
+- local database files
+- uploaded media folders
+- local virtual environments
+- real environment files and secret config files
+- Firebase service account files
+- app signing keys and local signing config
+- personal or production Firebase app config files
+- build output folders and cache folders
 
 Reason:
 - These contain private data, generated files, local machine state, binary assets that should be recreated, or credentials that could be abused if exposed.
@@ -63,11 +63,42 @@ Reason:
 
 - `DJANGO_SECRET_KEY` must not be committed in a real `.env` file. Keep it local and set it per environment.
 - JWT tokens should never be hardcoded or committed.
-- `backend/db.sqlite3` may contain real user accounts and app data, so it should stay out of GitHub.
-- `backend/media/` can contain user-uploaded waste photos and profile pictures, so it should stay out of GitHub.
-- `google-services.json` is not a backend secret, but it does identify your Firebase project. For a public repo, it is better to let contributors add their own Firebase config or use a separate non-production Firebase project.
+- Local database files may contain real user accounts and app data, so they should stay out of GitHub.
+- Uploaded media folders can contain user waste photos and profile pictures, so they should stay out of GitHub.
+- Firebase app config is not a backend secret, but it does identify your Firebase project. For a public repo, it is better to let contributors add their own Firebase config or use a separate non-production Firebase project.
 
 ## First-time GitHub upload
+
+Before pushing, remove sensitive or local-only files from Git tracking if they were already added:
+
+```powershell
+git rm --cached backend/db.sqlite3
+git rm --cached -r backend/media
+git rm --cached -r backend/.venv
+git rm --cached android/app/google-services.json
+git add .gitignore README.md
+git commit -m "Remove local files and secrets from git tracking"
+```
+
+Check that your GitHub remote URL is valid:
+
+```powershell
+git remote -v
+```
+
+Expected output:
+
+```text
+origin  https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git (fetch)
+origin  https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git (push)
+```
+
+If the remote is wrong, replace it:
+
+```powershell
+git remote remove origin
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+```
 
 ```powershell
 git init
