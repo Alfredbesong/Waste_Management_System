@@ -10,6 +10,8 @@ class ReportService {
 
   final ApiClient _apiClient;
 
+  String resolveMediaUrl(String path) => _apiClient.resolveUrl(path);
+
   Future<List<WasteReport>> fetchReports() async {
     final response = await _apiClient.getJson('/reports/');
     if (response is List) {
@@ -78,5 +80,9 @@ class ReportService {
       body: {'status': status},
     );
     return WasteReport.fromJson(response as Map<String, dynamic>);
+  }
+
+  Future<void> deleteReport(int reportId) async {
+    await _apiClient.deleteJson('/reports/$reportId/');
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/network/api_exception.dart';
+import '../../home/presentation/home_page.dart';
 import '../data/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -61,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Account created successfully.')),
       );
-      Navigator.pop(context);
+      Navigator.pushNamedAndRemoveUntil(context, HomePage.routeName, (route) => false);
     } catch (error) {
       if (!mounted) return;
       final message = error is ApiException ? error.message : error.toString();

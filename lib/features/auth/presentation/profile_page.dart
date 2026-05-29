@@ -3,12 +3,12 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../home/presentation/home_page.dart';
 import '../../../core/network/api_exception.dart';
 import '../../../shared/models/user_profile.dart';
 import '../../../shared/services/session_store.dart';
 import '../../../shared/services/theme_store.dart';
 import '../data/auth_service.dart';
+import 'auth_entry_page.dart';
 import 'login_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -93,10 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _goHome() async {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => const HomePage()),
-      (route) => false,
-    );
+    Navigator.pushNamedAndRemoveUntil(context, AuthEntryPage.routeName, (route) => false);
   }
 
   Future<void> _logout() async {

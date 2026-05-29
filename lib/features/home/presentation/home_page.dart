@@ -12,6 +12,8 @@ import '../../reports/presentation/report_list_page.dart' show ReportListPage;
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  static const routeName = '/home';
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -49,7 +51,7 @@ class HomePage extends StatelessWidget {
                     Text(
                       AppStrings.appSubtitle,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withOpacity(0.92),
+                        color: Colors.white.withValues(alpha: 0.92),
                       ),
                     ),
                     const SizedBox(height: 20),

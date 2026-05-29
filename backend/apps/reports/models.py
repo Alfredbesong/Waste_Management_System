@@ -20,6 +20,22 @@ class WasteReport(models.Model):
     def __str__(self) -> str:
         return f"{self.id} - {self.status}"
 
+    @property
+    def progress_percent(self) -> int:
+        if self.status == self.Status.RESOLVED:
+            return 100
+        if self.status == self.Status.IN_PROGRESS:
+            return 60
+        return 20
+
+    @property
+    def progress_step(self) -> int:
+        if self.status == self.Status.RESOLVED:
+            return 3
+        if self.status == self.Status.IN_PROGRESS:
+            return 2
+        return 1
+
 
 class Confirmation(models.Model):
     report = models.ForeignKey(WasteReport, on_delete=models.CASCADE, related_name="confirmations")
@@ -29,4 +45,3 @@ class Confirmation(models.Model):
 
     def __str__(self) -> str:
         return f"Confirmation for {self.report_id}"
-

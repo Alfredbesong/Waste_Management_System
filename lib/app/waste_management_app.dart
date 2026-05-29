@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:wastemanagement/core/theme/app_theme.dart';
+import 'package:wastemanagement/features/auth/presentation/auth_entry_page.dart';
 import 'package:wastemanagement/features/auth/presentation/login_page.dart';
 import 'package:wastemanagement/features/auth/presentation/profile_page.dart';
 import 'package:wastemanagement/features/auth/presentation/register_page.dart';
@@ -29,8 +30,10 @@ class WasteManagementApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: themeMode,
-          home: const HomePage(),
+          home: const AuthEntryPage(),
           routes: <String, WidgetBuilder>{
+            AuthEntryPage.routeName: (_) => const AuthEntryPage(),
+            HomePage.routeName: (_) => const HomePage(),
             LoginPage.routeName: (_) => const LoginPage(),
             ProfilePage.routeName: (_) => const ProfilePage(),
             RegisterPage.routeName: (_) => const RegisterPage(),

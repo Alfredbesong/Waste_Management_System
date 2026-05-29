@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/network/api_exception.dart';
+import '../../home/presentation/home_page.dart';
 import '../data/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -44,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Login successful.')),
       );
-      Navigator.pop(context);
+      Navigator.pushNamedAndRemoveUntil(context, HomePage.routeName, (route) => false);
     } catch (error) {
       if (!mounted) return;
       final message = error is ApiException ? error.message : error.toString();

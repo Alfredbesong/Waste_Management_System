@@ -10,4 +10,3 @@ urlpatterns = [
     path("", include(router.urls)),
     path("confirm/", ConfirmationCreateView.as_view(), name="confirm-report"),
 ]
-

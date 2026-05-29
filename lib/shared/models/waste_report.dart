@@ -14,6 +14,8 @@ class WasteReport {
     required this.longitude,
     required this.status,
     required this.statusLabel,
+    required this.progressPercent,
+    required this.progressStep,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -26,6 +28,8 @@ class WasteReport {
   final double longitude;
   final String status;
   final String statusLabel;
+  final int progressPercent;
+  final int progressStep;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -41,6 +45,8 @@ class WasteReport {
       longitude: (json['longitude'] as num?)?.toDouble() ?? 0,
       status: status,
       statusLabel: json['status_label'] as String? ?? _labelForStatus(status),
+      progressPercent: (json['progress_percent'] as num?)?.toInt() ?? _progressForStatus(status),
+      progressStep: (json['progress_step'] as num?)?.toInt() ?? _stepForStatus(status),
       createdAt: DateTime.tryParse(json['created_at'] as String? ?? '') ??
           DateTime.now(),
       updatedAt: DateTime.tryParse(json['updated_at'] as String? ?? '') ??
@@ -59,6 +65,28 @@ class WasteReport {
     }
   }
 
+  static int _progressForStatus(String status) {
+    switch (status) {
+      case WasteReportStatus.inProgress:
+        return 60;
+      case WasteReportStatus.resolved:
+        return 100;
+      default:
+        return 20;
+    }
+  }
+
+  static int _stepForStatus(String status) {
+    switch (status) {
+      case WasteReportStatus.inProgress:
+        return 2;
+      case WasteReportStatus.resolved:
+        return 3;
+      default:
+        return 1;
+    }
+  }
+
   static List<WasteReport> sampleReports() {
     final now = DateTime.now();
 
@@ -72,6 +100,8 @@ class WasteReport {
         longitude: 9.266,
         status: WasteReportStatus.reported,
         statusLabel: 'Reported',
+        progressPercent: 20,
+        progressStep: 1,
         createdAt: now,
         updatedAt: now,
       ),
@@ -84,6 +114,8 @@ class WasteReport {
         longitude: 9.261,
         status: WasteReportStatus.inProgress,
         statusLabel: 'In Progress',
+        progressPercent: 60,
+        progressStep: 2,
         createdAt: now,
         updatedAt: now,
       ),

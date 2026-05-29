@@ -6,6 +6,8 @@ from .models import Confirmation, WasteReport
 class WasteReportReadSerializer(serializers.ModelSerializer):
     reporter_username = serializers.CharField(source='user.username', read_only=True)
     status_label = serializers.CharField(source='get_status_display', read_only=True)
+    progress_percent = serializers.IntegerField(read_only=True)
+    progress_step = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = WasteReport
@@ -18,6 +20,8 @@ class WasteReportReadSerializer(serializers.ModelSerializer):
             'longitude',
             'status',
             'status_label',
+            'progress_percent',
+            'progress_step',
             'created_at',
             'updated_at',
         ]
