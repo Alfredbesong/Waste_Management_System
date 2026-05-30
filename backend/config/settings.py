@@ -25,7 +25,7 @@ def _normalize_origin(value: str) -> str | None:
     return f'https://{value.rstrip("/")}'
 
 
-DEBUG = _env_bool('DJANGO_DEBUG', 'true')
+DEBUG = _env_bool('DJANGO_DEBUG', 'false')
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'replace-me-in-production')
 if not DEBUG and SECRET_KEY == 'replace-me-in-production':
     raise ImproperlyConfigured('DJANGO_SECRET_KEY must be set when DEBUG is False.')
