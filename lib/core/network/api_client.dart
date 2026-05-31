@@ -16,10 +16,10 @@ class ApiClient {
   static String get defaultBaseUrl {
     // Android emulators cannot reach localhost directly, so they use 10.0.2.2.
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://10.0.2.2:8000/api';
+      return 'https://waste-management-system-02zx.onrender.com';
     }
 
-    return 'http://127.0.0.1:8000/api';
+    return 'https://waste-management-system-02zx.onrender.com';
   }
 
   Future<dynamic> getJson(
