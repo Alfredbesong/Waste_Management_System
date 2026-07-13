@@ -16,12 +16,12 @@ class ApiClient {
   static String get defaultBaseUrl {
     // Android emulators cannot reach localhost directly, so they use 10.0.2.2.
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      return 'https://waste-management-system-02zx.onrender.com/api';
+      return 'http://localhost:8000/api';
     }
 
-    return 'https://waste-management-system-02zx.onrender.com/api'; // For development, this can be overridden by passing a different URL to the constructor.
+    return 'http://localhost:8000/api'; // For development, this can be overridden by passing a different URL to the constructor.
   }
-    // For development, the base URL is typically http://localhost:8000/api, but it can be overridden by passing a different URL to the constructor. In production, it should point to the actual backend server URL.
+    // For production, the base URL is typically https://waste-management-system-02zx.onrender.com/api , but it can be overridden by passing a different URL to the constructor. In production, it should point to the actual backend server URL.
    
   Future<dynamic> getJson(
     String path, {

@@ -205,17 +205,19 @@ http://127.0.0.1:8000/dashboard/
 flutter pub get
 flutter run
 ```
+
 ## Run on real device
+
 For a real Android phone to communicate with your Django backend, use your computer’s Wi-Fi IP address, not 127.0.0.1.
+
 - Run your backend
 - Add your computer IP to Django
   In your settings.py, add ip to Allowed_Host:ALLOWED_HOSTS = ["127.0.0.1", "localhost", "10.0.2.2", "192.168.1.10"]
 
 - Run flutter:flutter run --dart-define=API_BASE_URL=http://your_computer_ipaddress:8000
 - To find your ip address run on terminal:ipconfig
-Look for IPv4 Address under your Wi-Fi adapter.
+  Look for IPv4 Address under your Wi-Fi adapter.
 - Also make sure your phone and computer are on the same Wi-Fi, and allow Python/Django through Windows Firewall if prompted.
- 
 
 ## MVP Flow
 
