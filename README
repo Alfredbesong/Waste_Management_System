@@ -6,31 +6,7 @@ This repository is a single monorepo for the smart waste management MVP.
 - The Django backend and admin dashboard live in `backend/`
 - Shared notes and structure guidance live in `docs/`
 
-## What is implemented now
 
-- Flutter app shell with login, register, reporting, reports list, detail, and confirmation screens
-- Flutter profile page with editable account info, profile photo upload, logout, and delete account actions
-- Django REST API with JWT auth, waste reports, and confirmation endpoints
-- Custom responsive Django admin dashboard for managing waste reports in the browser
-- Firebase push notifications for report status updates
-- Photo upload support for waste reports
-- Photo upload support for user profile pictures
-- Basic security rules so citizens cannot edit admin-only report status updates
-- Backend tests for auth and report permissions
-- A small Flutter API client so the screens can talk to the backend
-
-## Recent additions
-
-- Users can now update `username`, `email`, `first_name`, `last_name`, and `phone_number` from the profile page
-- Users can tap the profile avatar to choose a profile picture from the gallery
-- Users can remove an existing profile picture
-- Django now stores profile images in `backend/media/profiles/`
-- `GET /api/auth/me/` now returns `profile_photo`
-- `PATCH /api/auth/me/` now updates profile data and accepts multipart image uploads
-- Admins can now sign in to a responsive web dashboard and update report status there
-- Citizen report tracking now shows a visual progress bar in the Flutter app
-- The Flutter app now opens with a session-aware auth-first landing for logged-out users
-- Citizens can now delete their own reports from the report status flow
 
 ## Safe GitHub upload guide
 
