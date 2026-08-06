@@ -256,6 +256,8 @@ For a real Android phone to communicate with your Django backend, use your compu
 - Flutter citizen login continues to use JWT authentication
 - Admins can filter reports, update status, and trigger user notifications from the dashboard
 - Citizens can now see report progress visually inside the Flutter app
+- Public registration creates citizen accounts only; create dashboard admins manually with `python manage.py createsuperuser` or by marking an existing trusted account as staff/admin in Django admin or the shell
+- If five people need dashboard access, provision five separate staff/admin accounts instead of reusing citizen signup
 
 ## How Flutter Talks To Django
 
@@ -283,6 +285,11 @@ For a real Android phone to communicate with your Django backend, use your compu
 - Register or log in from the app before creating reports.
 - Use the report form to auto-detect location and attach a photo if needed.
 - Use the profile page to edit your details, manage your profile photo, log out, or delete your account.
+
+## Notifications And Testing
+
+- Push notifications are not meant for Chrome web testing; the app skips device-token sync on web on purpose.
+- Test report status notifications on a real Android APK where Firebase Messaging and local notifications can run.
 
 ## Notes
 

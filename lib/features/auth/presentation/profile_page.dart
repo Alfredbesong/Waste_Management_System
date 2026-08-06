@@ -9,6 +9,7 @@ import '../../../shared/services/session_store.dart';
 import '../../../shared/services/theme_store.dart';
 import '../data/auth_service.dart';
 import 'auth_entry_page.dart';
+import '../../home/presentation/home_page.dart';
 import 'login_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -94,6 +95,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> _goHome() async {
     Navigator.pushNamedAndRemoveUntil(context, AuthEntryPage.routeName, (route) => false);
+  }
+
+  Future<void> _goBack() async {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+      return;
+    }
+
+    await Navigator.pushNamedAndRemoveUntil(
+      context,
+      _hasSession ? HomePage.routeName : AuthEntryPage.routeName,
+      (route) => false,
+    );
   }
 
   Future<void> _logout() async {
@@ -213,7 +227,12 @@ class _ProfilePageState extends State<ProfilePage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(onPressed: _goBack),
+        title: const Text('Profile'),
+      ),
       body: SafeArea(
+        top: false,
         child: !_hasSession
             ? Center(
                 child: Padding(
