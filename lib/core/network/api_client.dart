@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants/app_strings.dart';
 import '../../shared/services/session_store.dart';
 import 'api_exception.dart';
 
@@ -14,15 +14,13 @@ class ApiClient {
   final http.Client _httpClient;
 
   static String get defaultBaseUrl {
-    // Android emulators cannot reach localhost directly, so they use 10.0.2.2.
-    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
-      return 'http://localhost:8000/api';
-    }
-
-    return 'http://localhost:8000/api'; // For development, this can be overridden by passing a different URL to the constructor.
+    // Local development can override the hosted default at build or run time.
+    return const String.fromEnvironment(
+      'API_BASE_URL',
+      defaultValue: AppStrings.backendBaseUrl,
+    );
   }
-    // For production, the base URL is typically https://waste-management-system-02zx.onrender.com/api , but it can be overridden by passing a different URL to the constructor. In production, it should point to the actual backend server URL.
-   
+
   Future<dynamic> getJson(
     String path, {
     bool authenticated = true,

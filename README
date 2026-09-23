@@ -133,6 +133,8 @@ Set these on Render:
 
 Use PostgreSQL for deployment and keep SQLite only for local development.
 
+Render note: the configured media disk requires a paid web service. Render Free web services have an ephemeral filesystem, so uploaded report and profile images can be lost after restarts or redeployments. For a free service, use external object storage for media instead of relying on `MEDIA_ROOT`.
+
 ```powershell
 git init
 git add .
@@ -176,6 +178,12 @@ Flutter app setup in a new terminal:
 cd YOUR_REPO_NAME
 flutter pub get
 flutter run
+```
+
+The app uses the deployed Render API by default. To run against a local backend, override it explicitly:
+
+```powershell
+flutter run --dart-define=API_BASE_URL=http://127.0.0.1:8000/api
 ```
 
 If Firebase notifications are required, each user should add their own Firebase config files before running mobile builds.
