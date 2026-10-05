@@ -11,22 +11,27 @@ class DeviceTokenService {
   final ApiClient _apiClient;
 
   Future<void> syncCurrentToken() async {
-    if (kIsWeb || Firebase.apps.isEmpty) {
-      return;
-    }
+    try {
+      if (kIsWeb || Firebase.apps.isEmpty) {
+        return;
+      }
 
-    final token = await FirebaseMessaging.instance.getToken();
-    if (token == null || token.isEmpty) {
-      return;
-    }
+      final token = await FirebaseMessaging.instance.getToken();
+      if (token == null || token.isEmpty) {
+        return;
+      }
 
-    await _apiClient.postJson(
-      '/auth/device-token/',
-      body: {
-        'token': token,
-        'platform': _platformName(),
-      },
-    );
+      await _apiClient.postJson(
+        '/auth/device-token/',
+        body: {
+          'token': token,
+          'platform': _platformName(),
+        },
+      );
+    } catch (error) {
+      // Notification registration must not block an otherwise valid login.
+      debugPrint('Device token sync skipped: $error');
+    }
   }
 
   String _platformName() {
